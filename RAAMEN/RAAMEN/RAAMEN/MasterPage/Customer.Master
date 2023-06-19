@@ -1,0 +1,24 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Customer.master.cs" Inherits="RAAMEN.MasterPage.Customer" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h1>RAAMEN</h1>
+
+            <asp:Button ID="HomeButton" runat="server" Text="Home" OnClick="HomeButton_Click" />
+            <asp:Button ID="OrderRamenButton" runat="server" Text="Order Ramen" OnClick="OrderRamenButton_Click" />
+            <asp:Button ID="HistoryButton" runat="server" Text="History" OnClick="HistoryButton_Click" />
+            <asp:Button ID="ProfileButton" runat="server" Text="Profile" OnClick="ProfileButton_Click" />
+            <asp:Button ID="LogoutButton" runat="server" Text="Logout" OnClick="LogoutButton_Click" />
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

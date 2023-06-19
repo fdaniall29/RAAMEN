@@ -1,0 +1,81 @@
+~ MASUKKAN SESUAI URUTAN MENGGUNAKAN NAMA DATABASE "RaamenDatabase" DAN NAMA MODEL "RaamenModel~
+
+~~~ URUTAN KE 1 ~~~
+CREATE TABLE [dbo].[Role] (
+    [id]   INT          NOT NULL,
+    [name] VARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+INSERT INTO Role (id, name) VALUES
+(1, 'Admin'),
+(2, 'Staff'),
+(3, 'Customer');
+
+~~~ URUTAN KE 2 ~~~
+CREATE TABLE [dbo].[User] (
+    [Id]       INT          NOT NULL,
+    [Roleid]   INT          NOT NULL,
+    [Username] VARCHAR (50) NOT NULL,
+    [Email]    VARCHAR (50) NOT NULL,
+    [Gender]   VARCHAR (50) NOT NULL,
+    [Password] VARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Users_Role] FOREIGN KEY ([Roleid]) REFERENCES [dbo].[Role] ([id])
+);
+
+INSERT INTO "User" (Id, Roleid, Username, Email, Gender, Password) VALUES
+(11001, 1, 'danial', 'danial@gmail.com', 'Male', 'danial123'),
+(22001, 2, 'vonzy', 'vonzy@gmail.com', 'Female', 'vonzy123'),
+(22002, 2, 'alexa', 'alexa@gmail.com', 'Female', 'alexa123'),
+(33001, 3, 'fakhri', 'fakhri@gmail.com', 'Male', 'fakhri123'),
+(33002, 3, 'sze', 'sze@gmail.com', 'Female', 'sze123');
+
+~~~ URUTAN KE 3 ~~~
+CREATE TABLE [dbo].[Meat] (
+    [id]   INT          NOT NULL,
+    [name] VARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+INSERT INTO Meat (id, name) VALUES
+(1, 'Chicken'),
+(2, 'Beef');
+
+~~~ URUTAN KE 4 ~~~
+CREATE TABLE [dbo].[Ramen] (
+    [id]     INT          NOT NULL,
+    [Meatid] INT          NOT NULL,
+    [Name]   VARCHAR (50) NOT NULL,
+    [Broth]  VARCHAR (50) NOT NULL,
+    [Price]  VARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_Ramen_Meat] FOREIGN KEY ([Meatid]) REFERENCES [dbo].[Meat] ([id])
+);
+
+INSERT INTO Ramen (id, Meatid, Name, Broth, Price) VALUES
+(99001, 1, 'Legendary Chicken Ramen', 'Original', '39000'),
+(99002, 2, 'Legendary Beef Ramen', 'Original', '49000'),
+(99003, 1, 'Chicken Miso Ramen', 'Miso', '39000'),
+(99004, 2, 'Beef Miso Ramen', 'Miso', '49000'),
+(99005, 1, 'Chicken Curry Ramen', 'Curry', '39000'),
+(99006, 2, 'Beef Curry Ramen', 'Curry', '49000');
+
+~~~ URUTAN KE 5 ~~~
+CREATE TABLE [dbo].[Header] (
+    [id]         INT  NOT NULL,
+    [CustomerId] INT  NOT NULL,
+    [Staffid]    INT  NOT NULL,
+    [Date]       DATE NOT NULL,
+    CONSTRAINT [PK_Header] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_Header_User] FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[User] ([Id])
+);
+
+~~~ URUTAN KE 6 ~~~
+CREATE TABLE [dbo].[Detail] (
+    [Headerid] INT NOT NULL,
+    [Ramenid]  INT NOT NULL,
+    [Quantity] INT NOT NULL,
+    CONSTRAINT [FK_Detail_Header] FOREIGN KEY ([Headerid]) REFERENCES [dbo].[Header] ([id]),
+    CONSTRAINT [FK_Detail_Ramen] FOREIGN KEY ([Ramenid]) REFERENCES [dbo].[Ramen] ([id])
+);
